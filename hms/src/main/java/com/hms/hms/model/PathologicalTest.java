@@ -1,37 +1,30 @@
 package com.hms.hms.model;
 
-public class PathologicalTest extends LabTest{ //implements TestReport, CostCalculation{
-    //    private String title;
-//    private double cost;
-//    private boolean isAvailable;
+public class PathologicalTest extends LabTest {
     private String reagent;
 
-    public PathologicalTest(){}
-    public PathologicalTest(String title, double cost){
-        this.title = title;
-        this.cost = cost;
-    }
-    public PathologicalTest(String title, int cost){
-        this.title = title;
-        this.cost = cost;
-    }
-    public PathologicalTest(double cost, String name){
-        this.title = name;
-        this.cost = cost;
-    }
-    public PathologicalTest(String title,
-                            double cost,
-                            boolean isAvailable,
-                            String reagent){
-        super(title,cost,isAvailable);
+    // Constructors
+    public PathologicalTest(String title, double cost, boolean isAvailable, String reagent) {
+        super(title, cost, isAvailable);
         this.reagent = reagent;
     }
 
-    @Override
-    public String toString(){
-        String output = super.toString()+"\n"
-                + "Reagent: "+this.reagent+"\n";
-        return output;
+    public PathologicalTest(String title, double cost) {
+        super(title, cost, true); // Assuming default availability as true
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "\n"
+                + "Reagent: " + (reagent != null ? reagent : "N/A") + "\n";
+    }
+
+    // Getters and setters
+    public String getReagent() {
+        return reagent;
+    }
+
+    public void setReagent(String reagent) {
+        this.reagent = reagent;
+    }
 }

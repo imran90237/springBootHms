@@ -1,35 +1,45 @@
 package com.hms.hms.model;
 
-import jakarta.persistence.Entity;
-
-/**
- *
- * @author imran at SIMEC Systems
- */
-
-@Entity
-public abstract class LabTest {
+public class LabTest {
     protected String title;
     protected double cost;
     protected boolean isAvailable;
-    //protected String labTestType;
 
-    public LabTest() {}
-    public LabTest(String title,
-                   double cost,
-                   boolean isAvailable){
+    public LabTest(String title, double cost, boolean isAvailable) {
         this.title = title;
         this.cost = cost;
         this.isAvailable = isAvailable;
     }
 
-    public String toString(){
-        String output = "Test name: "+this.title+"\n"
-                + "Cost: "+this.cost+"\n"
-                + "Availability: "+this.isAvailable;
-        return output;
+    @Override
+    public String toString() {
+        return "Test Title: " + title + "\n"
+                + "Cost: " + cost + "\n"
+                + "Available: " + (isAvailable ? "Yes" : "No");
     }
 
-    //public abstract boolean deliverReport();
+    // Getters and setters
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
 }
