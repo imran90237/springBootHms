@@ -1,6 +1,0 @@
-CREATE TABLE IF NOT EXISTS LabTest (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    test_name VARCHAR(255) NOT NULL,
-    cost DECIMAL(10, 2) NOT NULL,
-    is_available BOOLEAN NOT NULL
-);
