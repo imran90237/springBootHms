@@ -1,44 +1,40 @@
 package com.hms.hms.controller;
 
 import com.hms.hms.model.Patient;
-import com.hms.hms.service.PatientService; // Ensure this is imported
+import com.hms.hms.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/patients")
-
-
 public class PatientController {
 
-
     @Autowired
-    private PatientService patientService;
+    private PatientRepository patientRepository;
 
+    // Display all patients
     @GetMapping
-    public List<Patient> getAllPatients() {
-        return patientService.getAllPatients();
+    public String listPatients(Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
+        return "list"; // Refers to list.html
     }
 
-    @PostMapping(path = "/add")
-    public @ResponseBody Patient savePatient(@RequestBody Patient patient) {
-        return patientService.savePatient(patient);
+    // Show form to add a new patient
+    @GetMapping("/new")
+    public String showForm(Model model) {
+        model.addAttribute("patient", new Patient());
+        return "form"; // Refers to form.html
     }
 
-    @GetMapping("/{id}")
-    public Patient getPatientById(@PathVariable Long id) {
-        return patientService.getPatientById(id);
-    }
-
-    @PutMapping("/{id}")
-    public void updatePatient(@PathVariable Long id, @RequestBody Patient updatedPatient) {
-        patientService.updatePatient(id, updatedPatient);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletePatient(@PathVariable Long id) {
-        patientService.deletePatient(id);
+    // Handle form submission
+    @PostMapping
+    public String addPatient(@ModelAttribute Patient patient) {
+        patientRepository.save(patient);
+        return "redirect:/patients"; // Redirect to the list after adding a patient
     }
 }
