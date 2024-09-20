@@ -26,7 +26,7 @@ public class PatientController {
 
     // Show form to add a new patient
     @GetMapping("/new")
-    public String showForm(Model model) {
+    public String showAddPatientForm(Model model) {
         model.addAttribute("patient", new Patient());
         return "add_patient"; // Refers to add_patient.html
     }
@@ -40,17 +40,18 @@ public class PatientController {
 
     // Show form to edit an existing patient
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditPatientForm(@PathVariable Long id, Model model) {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
         model.addAttribute("patient", patient);
-        return "edit_patient"; // Refers to edit_patient.html
+        return "edit_patient"; // This refers to the Thymeleaf template edit_patient.html
     }
+
 
     // Handle form submission for updating a patient
     @PostMapping("/update")
     public String updatePatient(@ModelAttribute Patient patient) {
-        patientRepository.save(patient); // Update the patient information
+        patientRepository.save(patient); // Save the updated patient information
         return "redirect:/patients"; // Redirect to the patient list after updating
     }
 
