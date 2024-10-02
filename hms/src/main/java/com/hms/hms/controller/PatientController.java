@@ -61,4 +61,17 @@ public class PatientController {
         patientRepository.deleteById(id);
         return "redirect:/patients"; // Redirect to the patient list after deletion
     }
+
+    @GetMapping("/all/")
+    public String allPatient() {
+        patientRepository.findAll();
+        return "redirect:/patients"; // Redirect to the patient list after deletion
+    }
+
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model) {
+        List<Patient> patients = patientRepository.findAll();
+        model.addAttribute("patients", patients);
+        return "dashboard"; // Refers to dashboard.html
+    }
 }
